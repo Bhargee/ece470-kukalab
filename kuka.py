@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import rospy
+import math
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 from brics_actuator.msg import *
@@ -16,6 +17,19 @@ default_pos = [(2*3.14159)-.0114, 1.166,-2.4551, 2.0745,0]
 def sender():
   rospy.init_node('sender', anonymous=True)
   rospy.sleep(1)
+  '''
+  try:
+    gripClose()
+    pos = inverseK(355,70,-45, .3)
+    moveArm(pos)
+    dump = raw_input()
+    moveArm(inverseK(355,-70,-45, .3))
+    dump = raw_input()
+    moveArm(inverseK(420, -6,-45, math.pi/4))
+    dump = raw_input()
+  except ValueError as e:
+    print(e)
+    '''
   while True:
     arm_pos = raw_input()
     if (arm_pos is 'q'):
@@ -23,11 +37,11 @@ def sender():
     vals = map(float, arm_pos.split(','))
     print 'recieved %s' % str(vals)
     try:
-      pos = inverseK(vals[0], vals[1], vals[2])
+      pos = inverseK(vals[0], vals[1], vals[2], math.pi/3.1)
       gripOpen()
       moveArm(pos)
       gripClose()
-      moveArm(inverseK(0,0,200))
+      moveArm(inverseK(0,0,200, (math.pi/3.1)))
     except ValueError as e:
       print(e)
       continue

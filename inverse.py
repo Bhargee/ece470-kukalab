@@ -1,11 +1,11 @@
 import math
 import cmath
 
-def inverseK(xw,yw,zw):
+def inverseK(xw,yw,zw, thp):
   x0 = xw
   y0 = yw
   z0 = zw
-  th_p = math.pi/3.1
+  th_p = thp
   th_r = 0
 
   th1 = math.atan2(y0,x0)
