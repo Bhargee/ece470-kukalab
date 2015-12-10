@@ -5,6 +5,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 
 def callback(data):
+  raw_input('hit anything to print joint state value')
   if 'arm_joint_1' in data.name:
     print data.position
   
